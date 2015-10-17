@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>手机APP下载页面：根据终端辨别下载地址</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        html, body { color:#000; margin:0; padding:0; font-family: '微软雅黑','黑体'; }
+        a { color:#000; text-decoration: none; }
+        a img { border: 0; }
+
+        .weixin { }
+        .weixin img { width: 100%; }
+
+        .footer { width:100%; text-align: center; font-size:0.8em; }
+        .copyright { height: 4em; line-height: 4em; background: #f6f8fa; }
+    </style>
+    <script type="text/javascript">
+        // 获取终端的相关信息
+        var Terminal = {
+            // 辨别移动终端类型
+            platform : function(){
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    // android终端或者uc浏览器
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+                    // 是否为iPhone或者QQHD浏览器
+                    iPhone: u.indexOf('iPhone') > -1 ,
+                    // 是否iPad
+                    iPad: u.indexOf('iPad') > -1
+                };
+            }(),
+            // 辨别移动终端的语言：zh-cn、en-us、ko-kr、ja-jp...
+            language : (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+
+
+        window.onload=function() {
+            setTimeout(start, 1);
+        }
+        function start() {
+            if (navigator.userAgent.indexOf('MicroMessenger') != -1) { //if (window.WeixinJSBridge) {
+                document.getElementById('default').style.display='none';
+                document.getElementById('weixing').style.display='';
+
+                if (Terminal.platform.android) {
+                    document.getElementById('guide_ios').style.display = 'none';
+                    document.getElementById('guide_android').style.display = '';
+                }
+                else if(Terminal.platform.iPhone) {
+                    document.getElementById('guide_ios').style.display = '';
+                    document.getElementById('guide_android').style.display = 'none';                }
+                else if(Terminal.platform.iPad) {
+                    document.getElementById('guide_ios').style.display = '';
+                    document.getElementById('guide_android').style.display = 'none';                         }
+            } else {
+                downloadForDevice();
+            }
+        }
+
+        function downloadForDevice(){
+            // 根据不同的终端，跳转到不同的地址
+            var theUrl = 'http://42.96.194.215:8089/zjtv/res/android-gdtv.apk';
+            if (Terminal.platform.android)
+            {
+                theUrl = 'http://42.96.194.215:8089/zjtv/res/android-gdtv.apk';
+            }
+            else if(Terminal.platform.iPhone)
+            {
+                theUrl = 'itms-services://?action=download-manifest&url=https://downloads.tvcloudapp.com/zjtv/zjtv.plist';
+            }
+            else if(Terminal.platform.iPad)
+            {
+                theUrl = 'itms-services://?action=download-manifest&url=https://downloads.tvcloudapp.com/zjtv/zjtv.plist';
+            }
+
+            location.href = theUrl;
+        }
+    </script>
+</head>
+<body>
+<div id="default" style="display:none;">
+
+</div>
+
+<div id="weixing" style="display:none;">
+     <div class="weixin" id="guide_ios"><img alt="step_ios" src="img/android_weixin_download.jpg" /></div>
+    <div class="weixin" id="guide_android"><img alt="step_android" src="img/android_weixin_download.jpg" /></div> 
+</div>
+
+
+<div class="footer">
+    <div class="copyright">&copy; 上海麦尖网络技术 技术支持</div>
+</div>
+
+</body>
+</html>

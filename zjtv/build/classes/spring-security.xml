@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <!--<global-method-security secured-annotations="enabled"/>-->
+
+    <http pattern="/images/*" security="none"/>
+    <http pattern="/res/**" security="none"/>
+    <http pattern="/" security="none"/>
+    <http pattern="/favicon.ico" security="none"/>
+    <http pattern="/notify*" security="none"/>
+    <http pattern="/jsp/login.jsp*" security="none"/>
+
+
+
+    <!--<http pattern="/login.jsp" security="none"/>-->
+    <http use-expressions="true" access-denied-page="/res/errors/403.jsp" create-session="ifRequired">
+        <http-basic/>
+        <!--<security:intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <intercept-url pattern="/zjtv/settings/**" access="hasRole('P_ADMIN')"/>
+        <intercept-url pattern="/zjtv/**" access="isAuthenticated()"/>
+        <form-login login-page="/jsp/login.jsp" default-target-url="/home" always-use-default-target="true" authentication-failure-url="/jsp/login.jsp?error=true"/>
+        <logout logout-success-url="/jsp/login.jsp" invalidate-session="true"/>
+
+        <!--&lt;!&ndash;session-fixation-protection="none" 防止伪造sessionid 攻击, 用户登录成功后会销毁当前的session, 创建新的session并把用户信息复制到新session中&ndash;&gt;-->
+        <!--<session-management session-fixation-protection="none" invalid-session-url="/res/errors/sessionTimeout.jsp">-->
+            <!--&lt;!&ndash;error-if-maximum-exceeded="true" 禁止2次登陆&ndash;&gt;-->
+            <!--<concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/res/errors/session_expired.jsp"/>-->
+        <!--</session-management>-->
+        <custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+    </http>
+    <!-- for Production -->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="jfengUserDetailService">
+            <password-encoder ref="passwordEncoder">
+                <salt-source user-property="username"/>
+            </password-encoder>
+        </authentication-provider>
+        <authentication-provider>
+            <password-encoder hash="md5">
+                <salt-source user-property="username"/>
+            </password-encoder>
+            <user-service>
+                <user name="rest" password="e1658e88cd76a7da066aae51263436bf" authorities="P_ADMIN,P_COMMON" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- for Development -->
+<!--    <authentication-manager>
+        <authentication-provider>
+            &lt;!&ndash;<password-encoder hash="plaintext">
+                <salt-source user-property="username"/>
+            </password-encoder>&ndash;&gt;
+            <user-service>
+                <user name="frank" password="1234" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>-->
+
+    <beans:bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
+    <beans:bean class="com.magic.core.security.JFengUserDetailsService" id="jfengUserDetailService"/>
+
+    <beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <beans:property name="decisionVoters">
+            <beans:list>
+                <beans:bean class="org.springframework.security.access.vote.RoleVoter" />
+                <beans:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+                <beans:bean class="com.magic.core.security.JFengAccessVoter"/>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+    <beans:bean id="securityMetadataSource" class="com.magic.core.security.JFengSecurityMetadataSource"/>
+    <beans:bean id="securityFilter" class="com.magic.core.security.JFengSecurityFilterInterceptor">
+        <beans:property name="rejectPublicInvocations" value="false"/>
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <beans:property name="securityMetadataSource" ref="securityMetadataSource"/>
+    </beans:bean>
+
+</beans:beans>

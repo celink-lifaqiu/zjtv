@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="jfeng.layout.base">
+        <put-attribute name="doctype" value="/tiles/doctype.jsp"/>
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/tiles/header.jsp"/>
+        <put-attribute name="main-menu" value="/tiles/main-menu.jsp"/>
+        <put-attribute name="sub-menu" value="/tiles/sub-menu.jsp"/>
+        <put-attribute name="styles" value="/tiles/styles.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/tiles/footer.jsp"/>
+        <put-attribute name="scripts" value="/tiles/scripts.jsp"/>
+    </definition>
+    <definition name="jfeng.layout.main" template="/tiles/layout.jsp">
+        <put-attribute name="doctype" value="/tiles/doctype.jsp"/>
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/tiles/header.jsp"/>
+        <put-attribute name="main-menu" value="/tiles/main-menu.jsp"/>
+        <put-attribute name="sub-menu" value="/tiles/sub-menu.jsp"/>
+        <put-attribute name="styles" value="/tiles/styles.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/tiles/footer.jsp"/>
+        <put-attribute name="scripts" value="/tiles/scripts.jsp"/>
+    </definition>
+    <definition name="jfeng.layout.welcome" template="/tiles/layout-welcome.jsp">
+        <put-attribute name="doctype" value="/tiles/doctype.jsp"/>
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/tiles/header.jsp"/>
+        <put-attribute name="main-menu" value="/tiles/main-menu.jsp"/>
+        <put-attribute name="styles" value="/tiles/styles.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/tiles/footer.jsp"/>
+        <put-attribute name="scripts" value="/tiles/scripts.jsp"/>
+    </definition>
+    <definition name="jfeng.layout.main-menu-horizontal" template="/tiles/layout-menu-horizontal.jsp">
+        <put-attribute name="doctype" value="/tiles/doctype.jsp"/>
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/tiles/header.jsp"/>
+        <put-attribute name="main-menu" value="/tiles/main-menu.jsp"/>
+        <put-attribute name="sub-menu" value="/tiles/sub-menu-horizontal.jsp"/>
+        <put-attribute name="styles" value="/tiles/styles.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/tiles/footer.jsp"/>
+        <put-attribute name="scripts" value="/tiles/scripts.jsp"/>
+    </definition>
+    <definition name="jfeng.layout.main-no-menu" template="/tiles/layout-no-menu.jsp">
+        <put-attribute name="doctype" value="/tiles/doctype.jsp"/>
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/tiles/header.jsp"/>
+        <put-attribute name="main-menu" value="/tiles/main-menu.jsp"/>
+        <put-attribute name="styles" value="/tiles/styles.jsp"/>
+        <put-attribute name="content" value=""/>
+        <put-attribute name="footer" value="/tiles/footer.jsp"/>
+        <put-attribute name="scripts" value="/tiles/scripts.jsp"/>
+    </definition>
+    <definition name="jfeng.layout.none" template="/tiles/none.jsp">
+        <put-attribute name="content" value=""/>
+    </definition>
+</tiles-definitions>

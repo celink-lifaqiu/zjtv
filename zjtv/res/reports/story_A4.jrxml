@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="story_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="204cb5b4-202e-490c-b9df-eaec0db5ef26">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="42.96.194.215"/>
+	<queryString language="SQL">
+		<![CDATA[select "" image, u.nickname, s.created_date, s.content from story s, user u
+where s.uid = u.uid
+ limit 10]]>
+	</queryString>
+	<field name="content" class="java.lang.String">
+		<fieldDescription><![CDATA[上传者对图片的评论]]></fieldDescription>
+	</field>
+	<field name="created_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nickname" class="java.lang.String">
+		<fieldDescription><![CDATA[昵称]]></fieldDescription>
+	</field>
+	<field name="image" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="107">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="440" y="26" width="100" height="20" uuid="d63d35f6-4a06-4625-ade9-7bd56885751c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="65" y="56" width="100" height="20" uuid="dd273d9b-faf0-4605-a5d2-b150afdb579b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[随手拍]]></text>
+			</staticText>
+			<image>
+				<reportElement x="5" y="26" width="50" height="50" uuid="be503ecc-8932-4d5a-8e95-87ebb7dc106e"/>
+				<imageExpression><![CDATA["/Users/yunchunnan/Work/湖北综合/app_icon.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="65" y="26" width="160" height="30" uuid="51cd0664-0c6f-4543-9b95-3cc335e64246"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[湖北综合"笑啦"]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="282" splitType="Stretch">
+			<frame>
+				<reportElement x="20" y="10" width="220" height="270" uuid="eecb9b85-a600-4c31-8d48-c042671641ea"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="10" y="11" width="195" height="239" uuid="a0d96546-b306-4d60-87ee-1c98165e3366"/>
+					<imageExpression><![CDATA[$F{image}]]></imageExpression>
+				</image>
+			</frame>
+			<textField>
+				<reportElement x="340" y="10" width="214" height="20" uuid="da4ac4d1-88a7-430b-8b9b-c4e481ebdd1e"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{created_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="10" width="100" height="20" uuid="198c42bd-bed0-4e9a-8e5a-1c71912e0b2b"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[发布日期]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="30" width="214" height="20" uuid="a0f9d561-0ccc-48bc-b2eb-9e72d096adc6"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nickname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="30" width="100" height="20" uuid="d0ee755a-0adb-46f4-9fbc-6e899c256c03"/>
+				<box padding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[昵称]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="50" width="214" height="230" uuid="0a78bd5c-b370-41f7-838d-fa82e55f2a3b"/>
+				<box padding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{content}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="50" width="100" height="230" uuid="fd52841e-9be7-470b-a1a7-d96397c3e182"/>
+				<box padding="2">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<text><![CDATA[内容]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="41" splitType="Stretch">
+			<image>
+				<reportElement x="430" y="1" width="110" height="40" uuid="708236ec-1ec5-4b42-b4e5-0ab52ca33d5e"/>
+				<imageExpression><![CDATA["/Users/yunchunnan/Work/magic_logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

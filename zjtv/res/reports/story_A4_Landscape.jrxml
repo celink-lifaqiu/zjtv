@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="story_A4_Landscape" pageWidth="807" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="807" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isIgnorePagination="true" uuid="2bacff22-c06f-4100-86e5-9b563a59ef22">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="42.96.194.215"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="SQL">
+		<![CDATA[select 	"" image1, "" image2,"" image3, "" image4,"" image5, "" image6,"" image7, "" image8, "" image9, 
+			u.nickname, s.created_date createdDate, s.content from story s, user u
+where 	s.uid = u.uid
+ limit 	1]]>
+	</queryString>
+	<field name="nickname" class="java.lang.String">
+		<fieldDescription><![CDATA[昵称]]></fieldDescription>
+	</field>
+	<field name="content" class="java.lang.String">
+		<fieldDescription><![CDATA[上传者对图片的评论]]></fieldDescription>
+	</field>
+	<field name="createdDate" class="java.sql.Timestamp"/>
+	<field name="image1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="image2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="image3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="image4" class="java.lang.String"/>
+	<field name="image5" class="java.lang.String"/>
+	<field name="image6" class="java.lang.String"/>
+	<field name="image7" class="java.lang.String"/>
+	<field name="image8" class="java.lang.String"/>
+	<field name="image9" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="456" y="0" width="350" height="20" uuid="5a872aca-668d-41c2-b609-8bef923f8084"/>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[图片]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="0856ec7f-d1e8-4d74-bc46-91902e2b331c"/>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[昵称]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="230" height="20" uuid="c8463712-9948-4f63-9eb1-817f2b0d44db"/>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[内容]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="126" height="20" uuid="dc2b6c54-a469-4f3d-8b6b-60a1023e785d"/>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[发布时间]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="149" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="149" uuid="cb03f3df-3ac3-4e39-9a9e-389f564b46a1"/>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nickname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="230" height="149" uuid="b7826ec9-e43d-41a8-8633-cef937c9d114"/>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{content}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMM d, yyyy" isBlankWhenNull="true">
+				<reportElement x="330" y="0" width="126" height="149" uuid="a58d9492-b567-4202-8f62-1b38c5866009"/>
+				<box padding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{createdDate}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="456" y="0" width="350" height="149" uuid="ca1ba954-6b71-482c-8fd7-4d6134b58515"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="0" y="1" width="69" height="74" uuid="b9879ba1-7388-4eee-b5b2-e37c72c505b1"/>
+					<imageExpression><![CDATA[$F{image1}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="281" y="1" width="69" height="74" uuid="2e30b230-472e-4c5c-a879-f4ce96ee3df8"/>
+					<imageExpression><![CDATA[$F{image5}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="70" y="1" width="69" height="74" uuid="169221eb-f915-4695-aa50-203b8a3e9a7f"/>
+					<imageExpression><![CDATA[$F{image2}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="210" y="75" width="69" height="74" uuid="6821c02c-d460-47a6-8a06-8d792816f42a"/>
+					<imageExpression><![CDATA[$F{image9}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="140" y="75" width="69" height="74" uuid="ad5dfcc7-071b-492d-b1eb-895462d54ab0"/>
+					<imageExpression><![CDATA[$F{image8}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="70" y="75" width="69" height="74" uuid="6e061036-89fe-422f-bb3b-7dbc7ac159a0"/>
+					<imageExpression><![CDATA[$F{image7}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="140" y="1" width="69" height="74" uuid="656b031d-7a5a-48a4-a6aa-03aece49da1b"/>
+					<imageExpression><![CDATA[$F{image3}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="210" y="1" width="69" height="74" uuid="0f9ae8c9-39c6-462b-8499-c95a6b05cd41"/>
+					<imageExpression><![CDATA[$F{image4}]]></imageExpression>
+				</image>
+				<image scaleImage="FillFrame" onErrorType="Blank">
+					<reportElement x="0" y="75" width="69" height="74" uuid="7673a92d-1ee1-4a9f-8c03-91ad117e5f32"/>
+					<imageExpression><![CDATA[$F{image6}]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</detail>
+	<noData>
+		<band height="31">
+			<staticText>
+				<reportElement x="-1" y="0" width="807" height="30" uuid="4946af76-018a-4e2c-a634-24c0fcc2dda4"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[没有任何数据]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>
