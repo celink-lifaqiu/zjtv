@@ -194,5 +194,19 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         return outStream.toByteArray();  
 	}
     
-    
+    public static byte[] loadImages(String imageUrl) throws Exception {  
+        //new一个URL对象  
+        URL url = new URL(imageUrl);  
+        //打开链接  
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();  
+        //设置请求方式为"GET"  
+        conn.setRequestMethod("GET");  
+        //超时响应时间为5秒  
+        conn.setConnectTimeout(5 * 1000);  
+        //通过输入流获取图片数据  
+        InputStream inStream = conn.getInputStream();  
+        //得到图片的二进制数据，以二进制封装得到数据，具有通用性  
+        byte[] data = readInputStream(inStream);  
+        return data;
+    }  
 }

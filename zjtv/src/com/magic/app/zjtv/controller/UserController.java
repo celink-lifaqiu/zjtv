@@ -187,7 +187,7 @@ public class UserController {
     	returnMap.put("userId", user.getId());
     	returnMap.put("account", user.getAccount());
     	returnMap.put("nickName", user.getNickName());
-    	returnMap.put("icon", PropertiesUtils.getInstance("config").getValue("com.magic.zjtv.host.images") + user.getIcon());
+    	returnMap.put("icon", user.getIcon());
     	returnMap.put("email", user.getEmail()==null?"":user.getEmail());
     	returnMap.put("address", user.getAddress()==null?"":user.getAddress());
     	returnMap.put("birthday", DateUtils.dateFormatStr(user.getBirthday()));
@@ -222,6 +222,9 @@ public class UserController {
 				return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_DATEFORAMT_ERR);
 			}
 		}
+    	if (parameter.containsKey("icon")) {
+    		user.setIcon(parameter.getString("icon"));
+    	}
     	if (parameter.containsKey("nickName")) {
     		user.setNickName(parameter.getString("nickName"));
     	}
@@ -244,7 +247,7 @@ public class UserController {
     	returnMap.put("userId", user.getId());
     	returnMap.put("account", user.getAccount());
     	returnMap.put("nickName", user.getNickName());
-    	returnMap.put("icon", PropertiesUtils.getInstance("config").getValue("com.magic.zjtv.host.images") + user.getIcon());
+    	returnMap.put("icon", user.getIcon());
     	returnMap.put("email", user.getEmail()==null?"":user.getEmail());
     	returnMap.put("address", user.getAddress()==null?"":user.getAddress());
     	returnMap.put("birthday", DateUtils.dateFormatStr(user.getBirthday()));
@@ -288,6 +291,7 @@ public class UserController {
 		result.setData(returnMap); //将返回的对象塞到result里面，它会自动被转换成JSON送给客户端
 		return result;
 	}
+    
     
     @RequestMapping("/addUserServiceAddress")
     @ResponseBody

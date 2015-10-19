@@ -99,7 +99,7 @@ public class UserService {
 		entity.setNickName(account);
 		entity.setBirthday(new Date());
 		entity.setPwdAnswer(new Date());
-		entity.setIcon("head.jpg");
+		entity.setIcon("http://192.168.4.183:8080/ImageFileService/img/head.jpg");
 		entity.setEmail("");
 		entity.setAddress("");
 		entity.setRegistDate(DateUtils.getDateTimestamp());
