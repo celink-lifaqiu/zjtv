@@ -109,7 +109,23 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     private static String TMSyyyyMMddHHmmss = "yyyyMMddHHmmss";
     private static String timezone = "China/BeiJing";
 
-    
+    /**
+
+     * 把毫秒转化成日期
+
+     * @param dateFormat(日期格式，例如：MM/ dd/yyyy HH:mm:ss)
+
+     * @param millSec(毫秒数)
+
+     * @return
+
+     */
+
+    public static String transferLongToDate(String dateFormat,Long millSec){
+    	SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+     	Date date= new Date(millSec);
+     	return sdf.format(date);
+    }
     
     public static Date strToDate(String str) throws ParseException {
         return dateFormatSimple.parse(str);
@@ -182,7 +198,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
     public static void main(String[] args) {
         Date date = getDateWithOutTime();
-        System.out.println(dateFormatStr(date));
+        System.out.println(transferLongToDate("yyyy-MM-dd", date.getTime()));
 //        Calendar cal1 = Calendar.getInstance();
 //        cal1.set(Calendar.DAY_OF_MONTH,7);
 //        Calendar cal2 = Calendar.getInstance();

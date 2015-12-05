@@ -94,12 +94,13 @@ public class UserService {
 	}
 
 	public User saveUser(String account, String password) {
+		long now = DateUtils.getDateWithOutTime().getTime();
 		UserEntity entity = new UserEntity();
 		entity.setAccount(account);
 		entity.setNickName(account);
-		entity.setBirthday(new Date());
-		entity.setPwdAnswer(new Date());
-		entity.setIcon("http://115.28.17.190:80/ImageFileService/img/head.jpg");
+		entity.setBirthday(now);
+		entity.setPwdAnswer(now);
+		entity.setIcon("http://115.28.17.190:8080/ImageFileService/img/head.jpg");
 		entity.setEmail("");
 		entity.setAddress("");
 		entity.setRegistDate(DateUtils.getDateTimestamp());

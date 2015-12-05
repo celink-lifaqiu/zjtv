@@ -17,6 +17,7 @@
                         <th>服务套餐类型</th>
                         <th>服务套餐名称</th>
                         <th>服务套餐费用</th>
+                        <th>服务套餐图片</th>
                         <th>操作</th>
                     </tr>
                 </jfeng:gridHead>
@@ -24,6 +25,16 @@
                 <jfeng:gridColumn data="packageType" />
                 <jfeng:gridColumn data="packageServiceName"/>
                 <jfeng:gridColumn data="packageServicePrice"/>
+                <jfeng:gridColumn data="packageServiceIcon" width="20%" sortable="false">
+                    <jfeng:columnRenderScript>
+                        var btnStr = '';
+
+                        btnStr =    "<div class='btn-group'>"+
+                        			'<img src="'+ row.packageServiceIcon +'" style="width: 50px; height: 50px;"></img>'+
+                                    "</div>"
+                        return btnStr;
+                    </jfeng:columnRenderScript>
+                </jfeng:gridColumn> 
                 <jfeng:gridColumn data="id" width="20%" sortable="false">
                     <jfeng:columnRenderScript>
                         var btnStr = '';

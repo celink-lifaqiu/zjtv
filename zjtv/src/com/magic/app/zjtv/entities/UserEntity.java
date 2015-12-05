@@ -18,8 +18,8 @@ public class UserEntity {
     private String icon;
     private String email;
     private String address;
-    private Date birthday;
-    private Date pwdAnswer;
+    private Long birthday;
+    private Long pwdAnswer;
     private Timestamp registDate;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,20 +92,20 @@ public class UserEntity {
 	}
 	@Basic
     @Column(name = "birthday")
-	public Date getBirthday() {
+	public Long getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(Long birthday) {
 		this.birthday = birthday;
 	}
 	@Basic
     @Column(name = "pwdAnswer")
-	public Date getPwdAnswer() {
+	public Long getPwdAnswer() {
 		return pwdAnswer;
 	}
 
-	public void setPwdAnswer(Date pwdAnswer) {
+	public void setPwdAnswer(Long pwdAnswer) {
 		this.pwdAnswer = pwdAnswer;
 	}
 

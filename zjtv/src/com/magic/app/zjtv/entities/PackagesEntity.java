@@ -10,7 +10,10 @@ import java.util.Date;
 public class PackagesEntity {
     private String packageServiceName;
     private String packageServiceDesc;
-    private Float packageServicePrice;
+    private String packageServiceIcon;
+
+
+	private Float packageServicePrice;
     private Integer packageTypeId;
     private Integer id;
     @Id
@@ -42,6 +45,15 @@ public class PackagesEntity {
 		this.packageServicePrice = packageServicePrice;
 	}
 	@Basic
+    @Column(name = "packageServiceIcon")
+    public String getPackageServiceIcon() {
+		return packageServiceIcon;
+	}
+
+	public void setPackageServiceIcon(String packageServiceIcon) {
+		this.packageServiceIcon = packageServiceIcon;
+	}
+	@Basic
     @Column(name = "packageServiceDesc")
 	public String getPackageServiceDesc() {
 		return packageServiceDesc;
@@ -70,6 +82,7 @@ public class PackagesEntity {
         PackagesEntity that = (PackagesEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (packageServiceIcon != null ? !packageServiceIcon.equals(that.packageServiceIcon) : that.packageServiceIcon != null) return false;
         if (packageServiceName != null ? !packageServiceName.equals(that.packageServiceName) : that.packageServiceName != null) return false;
         if (packageServiceDesc != null ? !packageServiceDesc.equals(that.packageServiceDesc) : that.packageServiceDesc != null) return false;
         if (packageTypeId != null ? !packageTypeId.equals(that.packageTypeId) : that.packageTypeId != null) return false;
@@ -80,6 +93,7 @@ public class PackagesEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (packageServiceIcon != null ? packageServiceIcon.hashCode() : 0);
         result = 31 * result + (packageServiceDesc != null ? packageServiceDesc.hashCode() : 0);
         result = 31 * result + (packageServiceName != null ? packageServiceName.hashCode() : 0);
         result = 31 * result + (packageTypeId != null ? packageTypeId.hashCode() : 0);

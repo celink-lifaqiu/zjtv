@@ -12,6 +12,6 @@ public class User extends UserEntity {
     
     
     public String getBirthdayStr(){
-    	return DateUtils.dateToInputStrWOTime(this.getBirthday());
+    	return DateUtils.transferLongToDate("yyyy-MM-dd", this.getBirthday());
     }
 }

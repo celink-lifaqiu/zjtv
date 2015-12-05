@@ -18,6 +18,7 @@ import com.magic.app.zjtv.model.Packages;
 import com.magic.app.zjtv.model.PackagesComp;
 import com.magic.app.zjtv.model.User;
 import com.magic.commons.utils.BeanUtils;
+import com.magic.qiniu.QiniuHelper;
 
 @Transactional
 @Service  //加入这个注解后，Spring会自动加入这个类到Spring上下文中，可被其他类注入
@@ -74,6 +75,15 @@ public class PackageService {
         if (id != null) {
             entity = packageDAO.findOne(id);
         }
+        
+        String imageHash = packages.getIconHash();
+		String imageUrl = entity.getPackageServiceIcon();
+		if (org.apache.commons.lang3.StringUtils.isEmpty(imageHash)) {
+            entity.setPackageServiceIcon(imageUrl);
+        }else{
+            entity.setPackageServiceIcon(QiniuHelper.QINIU_IMAGE_HOST + imageHash);
+        }
+        
         entity.setPackageServiceDesc(packages.getPackageServiceDesc());
         entity.setPackageServiceName(packages.getPackageServiceName());
         entity.setPackageServicePrice(packages.getPackageServicePrice());

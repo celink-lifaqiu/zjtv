@@ -11,4 +11,15 @@ public class Packages extends PackagesEntity {
         this.isContinue = isContinue;
     }
     private Boolean isContinue;
+    
+    private String iconHash;
+	
+	
+    public String getIconHash() {
+		return iconHash;
+	}
+
+	public void setIconHash(String iconHash) {
+		this.iconHash = iconHash;
+	}
 }

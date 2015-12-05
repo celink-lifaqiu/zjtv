@@ -23,7 +23,8 @@ import javax.persistence.SqlResultSetMapping;
                                 @FieldResult(name = "packageType", column = "packageType"),
                                 @FieldResult(name = "packageServiceName", column = "packageServiceName"),
                                 @FieldResult(name = "packageServicePrice", column = "packageServicePrice"),
-                                @FieldResult(name = "packageServiceDesc", column = "packageServiceDesc")
+                                @FieldResult(name = "packageServiceDesc", column = "packageServiceDesc"),
+                                @FieldResult(name = "packageServiceIcon", column = "packageServiceIcon")
                         }
                 )
         })
@@ -31,7 +32,7 @@ import javax.persistence.SqlResultSetMapping;
         @NamedNativeQuery(
                 name = "findAllPackagesCompQuery",
                 resultSetMapping = "PackagesCompResult",
-                query = "SELECT p.id,p.packageTypeId,pt.type as packageType,p.packageServiceName,p.packageServicePrice,p.packageServiceDesc \n" +
+                query = "SELECT p.id,p.packageTypeId,pt.type as packageType,p.packageServiceName,p.packageServicePrice,p.packageServiceDesc,p.packageServiceIcon \n" +
                 		"from package_tb as p, packagetype_tb as pt \n" +
                 		"where p.packageTypeId=pt.id \n" +
                 		"ORDER BY packageTypeId"
@@ -44,6 +45,7 @@ public class PackagesCompEntity {
     private String packageServiceName;
     private Float packageServicePrice;
     private String packageServiceDesc;
+    private String packageServiceIcon;
 
     @Id
     public Integer getId() {
@@ -68,6 +70,14 @@ public class PackagesCompEntity {
 
 	public void setPackageType(String packageType) {
 		this.packageType = packageType;
+	}
+
+	public String getPackageServiceIcon() {
+		return packageServiceIcon;
+	}
+
+	public void setPackageServiceIcon(String packageServiceIcon) {
+		this.packageServiceIcon = packageServiceIcon;
 	}
 
 	public String getPackageServiceName() {

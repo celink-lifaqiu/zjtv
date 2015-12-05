@@ -28,16 +28,16 @@ public class QiniuHelper {
 		}
 	}
 	
-	public static final String QINIU_IMAGE_HOST = "http://tvcloud-images.qiniudn.com/";
+	public static final String QINIU_IMAGE_HOST = "http://7xoxhu.com1.z0.glb.clouddn.com/";
     public static final String QINIU_AUDIO_HOST = "http://tvcloud-audios.qiniudn.com/";
     public static final String QINIU_VIDEO_HOST = "http://tvcloud-videos.qiniudn.com/";
-    public static final String QINIU_BUCKET_IMAGE = "tvcloud-images";
+    public static final String QINIU_BUCKET_IMAGE = "xiaohuoban";
     public static final String QINIU_BUCKET_AUDIO = "tvcloud-audios";
     public static final String QINIU_BUCKET_VIDEO = "tvcloud-videos";
 
     public static void init(){
-        Config.ACCESS_KEY = "8PaMy49u0A69pgqar9fkMxUYHzxUVgNWvYCbG-sc";
-        Config.SECRET_KEY = "a1bys6SmLIVg1BPLv8LB5XszdUNtSsM-LIS_fAx6";
+        Config.ACCESS_KEY = "4htBRqsJz5gCtiPrwW0OI39B7rFJcZTuv3JKJWeh";
+        Config.SECRET_KEY = "ttEmhUGJtnSJuOkOpL5X1DFHGioG0QjNyqiHWE5V";
     }
     public static String generateUpToken(String bucketName) throws AuthException {
         init();

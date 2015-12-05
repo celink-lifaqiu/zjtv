@@ -1,8 +1,13 @@
 package com.magic.app.zjtv.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.magic.app.zjtv.model.Advertise;
 import com.magic.app.zjtv.model.PackageType;
 import com.magic.app.zjtv.model.Packages;
 import com.magic.app.zjtv.model.PackagesComp;
@@ -23,6 +30,9 @@ import com.magic.commons.utils.JsonUtils;
 import com.magic.core.annotation.Menu;
 import com.magic.core.annotation.Permission;
 import com.magic.core.annotation.layout.LayoutMenuHorizontal;
+import com.magic.core.annotation.layout.LayoutNone;
+import com.magic.qiniu.QiniuHelper;
+import com.qiniu.api.auth.AuthException;
 
 @Controller
 @RequestMapping("/package")
@@ -118,10 +128,28 @@ public class PackageController {
     	
     	List<PackageType> list = packageService.findAllPackageTypes();
     	request.setAttribute("packageTypeList", list);
+    	
+        try {
+			String uptoken = QiniuHelper.generateUpToken(QiniuHelper.QINIU_BUCKET_IMAGE);
+			request.setAttribute("uptoken", uptoken);
+		} catch (AuthException e) {
+			e.printStackTrace();
+		}
+    	
     	return "packages_edit";
     }
     
     
+    @RequestMapping("/previewImage")
+	@LayoutNone
+	public String previewImage(@RequestParam String hash,
+			HttpServletRequest request) {
+		String imageUrl = QiniuHelper.QINIU_IMAGE_HOST + hash;
+		Packages packages = new Packages();
+		packages.setPackageServiceIcon(imageUrl);
+		request.setAttribute("packages", packages);
+		return "packages_image";
+	}
     
     @RequestMapping("/saveOrUpdatePackages")
     public String saveOrUpdatePackages(
@@ -141,6 +169,5 @@ public class PackageController {
     	packageService.deletePackages(id);
     	return "success";
     }
-    
-    
+
 }

@@ -90,7 +90,7 @@ public class UserController {
 	
     @RequestMapping("/updatePassword/{userId}")
     @LayoutNone
-    public String updatePassword(HttpServletRequest request, @PathVariable Integer userId){
+    public String updatePassword(HttpServletRequest request, @PathVariable int userId){
     	User  user= userService.findUserByUserId(userId);
     	request.setAttribute("user", user);
     	return "updatePassword";
@@ -99,16 +99,16 @@ public class UserController {
 
     @RequestMapping("/updateUserPassword")
     @ResponseBody
-    public String updateUserPassword(@RequestParam Integer userId, @RequestParam String password){
+    public String updateUserPassword(@RequestParam int userId, @RequestParam String password){
     	userService.updateUserPassword(userId, password);
         return "success";
     }
     
 
     @RequestMapping("/editUser/{userId}")
-    public String editUser(@PathVariable Integer userId, @ModelAttribute User user, HttpServletRequest request){
+    public String editUser(@PathVariable int userId, @ModelAttribute User user, HttpServletRequest request){
     	user.setId(null);
-        if (userId != null){
+        if (userId != 0){
             User userTmp = userService.findUserByUserId(userId);
             BeanUtils.copyProperties(userTmp, user);
         }
@@ -131,7 +131,7 @@ public class UserController {
     @RequestMapping("/register")
 	@ResponseBody
     @NoAuth
-	public HttpDataResult register(HttpServletRequest request, String account, String password, HttpDataResult result){
+	public HttpDataResult register(HttpServletRequest request,@RequestParam String account,@RequestParam String password, HttpDataResult result){
         log.debug("This is UserController.register.");
     	if(StringUtils.isBlank(account) || StringUtils.isBlank(password)){
 //			这里的ID是必选项目，枚举类Messages下面包含了预定义好的各种错误信息，具体信息定义在messages.properties文件中
@@ -169,7 +169,7 @@ public class UserController {
     @RequestMapping("/login")
     @ResponseBody
     @NoAuth
-	public HttpDataResult login(HttpServletRequest request, String account, String password, HttpDataResult result){
+	public HttpDataResult login(HttpServletRequest request,@RequestParam String account,@RequestParam String password, HttpDataResult result){
     	if(StringUtils.isBlank(account) || StringUtils.isBlank(password)){
 //			这里的ID是必选项目，枚举类Messages下面包含了预定义好的各种错误信息，具体信息定义在messages.properties文件中
 			return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
@@ -190,8 +190,8 @@ public class UserController {
     	returnMap.put("icon", user.getIcon());
     	returnMap.put("email", user.getEmail()==null?"":user.getEmail());
     	returnMap.put("address", user.getAddress()==null?"":user.getAddress());
-    	returnMap.put("birthday", DateUtils.dateFormatStr(user.getBirthday()));
-    	returnMap.put("pwdAnswer", DateUtils.dateFormatStr(user.getPwdAnswer()));
+    	returnMap.put("birthday", user.getBirthday());
+    	returnMap.put("pwdAnswer", user.getPwdAnswer());
 		result.setData(returnMap); //将返回的对象塞到result里面，它会自动被转换成JSON送给客户端
 		return result;
 	}
@@ -199,10 +199,10 @@ public class UserController {
     @RequestMapping("/updateUserInfo")
     @ResponseBody
     @NoAuth
-	public HttpDataResult updateUserInfo(HttpServletRequest request, String jsonParameter, HttpDataResult result){
+	public HttpDataResult updateUserInfo(HttpServletRequest request,@RequestParam String string, HttpDataResult result){
     	JSONObject parameter = null;
     	try {
-    		parameter = JSONObject.fromObject(jsonParameter);
+    		parameter = JSONObject.fromObject(string);
 		} catch (Exception e) {
 			return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
 		}
@@ -216,11 +216,7 @@ public class UserController {
 		}
     	
     	if (parameter.containsKey("birthday")) {
-			try {
-				user.setBirthday(DateUtils.strToDate(parameter.getString("birthday")));
-			} catch (ParseException e) {
-				return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_DATEFORAMT_ERR);
-			}
+    		user.setBirthday(parameter.getLong("birthday"));
 		}
     	if (parameter.containsKey("icon")) {
     		user.setIcon(parameter.getString("icon"));
@@ -233,11 +229,7 @@ public class UserController {
     	}
     	
     	if (parameter.containsKey("pwdAnswer")) {
-    		try {
-    			user.setPwdAnswer(DateUtils.strToDate(parameter.getString("pwdAnswer")));
-    		} catch (ParseException e) {
-    			return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_DATEFORAMT_ERR);
-    		}
+    		user.setPwdAnswer(parameter.getLong("pwdAnswer"));
     	}
 		user = userService.updateUser(user);  
 		if (user == null) {
@@ -250,8 +242,8 @@ public class UserController {
     	returnMap.put("icon", user.getIcon());
     	returnMap.put("email", user.getEmail()==null?"":user.getEmail());
     	returnMap.put("address", user.getAddress()==null?"":user.getAddress());
-    	returnMap.put("birthday", DateUtils.dateFormatStr(user.getBirthday()));
-    	returnMap.put("pwdAnswer", DateUtils.dateFormatStr(user.getPwdAnswer()));
+    	returnMap.put("birthday", user.getBirthday());
+    	returnMap.put("pwdAnswer", user.getPwdAnswer());
 		result.setData(returnMap); //将返回的对象塞到result里面，它会自动被转换成JSON送给客户端
 		return result;
 	}
@@ -260,10 +252,10 @@ public class UserController {
     @RequestMapping("/updatePassword")
     @ResponseBody
     @NoAuth
-	public HttpDataResult updatePassword(HttpServletRequest request, String jsonParameter, HttpDataResult result){
+	public HttpDataResult updatePassword(HttpServletRequest request,@RequestParam String string, HttpDataResult result){
     	JSONObject parameter = null;
     	try {
-    		parameter = JSONObject.fromObject(jsonParameter);
+    		parameter = JSONObject.fromObject(string);
 		} catch (Exception e) {
 			return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
 		}
@@ -276,7 +268,7 @@ public class UserController {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_USERID_ERR);
 		}
     	
-    	if (!(DateUtils.dateFormatStr(user.getPwdAnswer()).equals(parameter.getString("pwdAnswer")))) {
+    	if (!(DateUtils.transferLongToDate("yyyy-MM-dd", user.getPwdAnswer()).equals(DateUtils.transferLongToDate("yyyy-MM-dd", parameter.getLong("pwdAnswer"))))) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_ANSWER_ERR);
 		}
     	String newPassword = parameter.getString("newPassword");
@@ -296,18 +288,31 @@ public class UserController {
     @RequestMapping("/addUserServiceAddress")
     @ResponseBody
     @NoAuth
-	public HttpDataResult addUserServiceAddress(HttpServletRequest request, String jsonParameter,  HttpDataResult result){
+	public HttpDataResult addUserServiceAddress(HttpServletRequest request,@RequestParam String string,  HttpDataResult result){
     	JSONObject parameter = null;
     	try {
-    		parameter = JSONObject.fromObject(jsonParameter);
+    		parameter = JSONObject.fromObject(string);
 		} catch (Exception e) {
 			return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
 		}
-    	if (!parameter.containsKey("userId") || !parameter.containsKey("reservation") || !parameter.containsKey("phone")
-    			 || !parameter.containsKey("districtInformation") || !parameter.containsKey("address")
-    			 || !parameter.containsKey("idDefaultServiceAddress")) {
+    	if (!parameter.containsKey("userId")) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
 		}
+    	if (!parameter.containsKey("reservation")) {
+    		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
+    	}
+    	if (!parameter.containsKey("phone")) {
+    		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
+    	}
+    	if (!parameter.containsKey("districtInformation")) {
+    		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
+    	}
+    	if (!parameter.containsKey("address")) {
+    		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
+    	}
+    	if (!parameter.containsKey("idDefaultServiceAddress")) {
+    		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
+    	}
     	int userId = parameter.getInt("userId");
     	User user = this.userService.findUserByUserId(userId);
     	if (user == null) {
@@ -354,10 +359,10 @@ public class UserController {
     @RequestMapping("/updateUserServiceAddress")
     @ResponseBody
     @NoAuth
-    public HttpDataResult updateUserServiceAddress(HttpServletRequest request, String jsonParameter,  HttpDataResult result){
+    public HttpDataResult updateUserServiceAddress(HttpServletRequest request,@RequestParam String string,  HttpDataResult result){
     	JSONObject parameter = null;
     	try {
-    		parameter = JSONObject.fromObject(jsonParameter);
+    		parameter = JSONObject.fromObject(string);
     	} catch (Exception e) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
     	}
@@ -422,7 +427,7 @@ public class UserController {
     @RequestMapping("/getUserServiceAddress")
     @ResponseBody
     @NoAuth
-    public HttpListResult getUserServiceAddress(HttpServletRequest request, Integer userId, HttpListResult result){
+    public HttpListResult getUserServiceAddress(HttpServletRequest request,@RequestParam int userId, HttpListResult result){
     	User user = this.userService.findUserByUserId(userId);
     	if (user == null) {
     		return (HttpListResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_USERID_ERR);
@@ -450,7 +455,7 @@ public class UserController {
     @RequestMapping("/getUserCoupon")
     @ResponseBody
     @NoAuth
-    public HttpListResult getUserCoupon(HttpServletRequest request, Integer userId, Integer isUsed, HttpListResult result){
+    public HttpListResult getUserCoupon(HttpServletRequest request,@RequestParam int userId,@RequestParam int isUsed, HttpListResult result){
     	User user = this.userService.findUserByUserId(userId);
     	if (user == null) {
     		return (HttpListResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_USERID_ERR);
@@ -479,7 +484,7 @@ public class UserController {
     @RequestMapping("/getServicePackage")
     @ResponseBody
     @NoAuth
-    public HttpListResult getServicePackage(HttpServletRequest request, Integer packageType, HttpListResult result){
+    public HttpListResult getServicePackage(HttpServletRequest request,@RequestParam int packageType, HttpListResult result){
     	if (packageType != 1 && packageType != 2 && packageType != 3 && packageType != 4) {
     		return (HttpListResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PACKAGETYPE_ERR);
 		}
@@ -502,7 +507,7 @@ public class UserController {
     @RequestMapping("/getServicePackageByPackageServiceId")
     @ResponseBody
     @NoAuth
-    public HttpDataResult getServicePackageByPackageServiceId(HttpServletRequest request, Integer packageServiceId,  HttpDataResult result){
+    public HttpDataResult getServicePackageByPackageServiceId(HttpServletRequest request,@RequestParam int packageServiceId,  HttpDataResult result){
     	Packages packages = this.userService.findPackageByPackageServiceId(packageServiceId);
     	if (packages == null) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PACKAGE_NOT_EXIST_ERR);
@@ -519,7 +524,7 @@ public class UserController {
     @RequestMapping("/submitComment")
     @ResponseBody
     @NoAuth
-    public HttpDataResult submitComment(HttpServletRequest request, Integer userId, Integer orderId, Integer star, String content,  HttpDataResult result){
+    public HttpDataResult submitComment(HttpServletRequest request,@RequestParam int userId,@RequestParam int orderId,@RequestParam int star,@RequestParam String content,  HttpDataResult result){
     	if (star != 1 && star != 2 && star != 3 && star != 4 && star != 5) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_START_ERR);
 		}
@@ -567,7 +572,7 @@ public class UserController {
     @RequestMapping("/getAverageCommentByPackageType")
     @ResponseBody
     @NoAuth
-    public HttpDataResult getAverageCommentByPackageType(HttpServletRequest request, Integer packageType,  HttpDataResult result){
+    public HttpDataResult getAverageCommentByPackageType(HttpServletRequest request,@RequestParam int packageType,  HttpDataResult result){
     	if (packageType != 1 && packageType != 2 && packageType != 3 && packageType != 4) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PACKAGETYPE_ERR);
 		}
@@ -594,7 +599,7 @@ public class UserController {
     @RequestMapping("/getCommentByPackageType")
     @ResponseBody
     @NoAuth
-    public HttpListResult getCommentByPackageType(HttpServletRequest request, Integer packageType, Integer page, Integer pageSize, HttpListResult result){
+    public HttpListResult getCommentByPackageType(HttpServletRequest request,@RequestParam int packageType,@RequestParam int page,@RequestParam int pageSize, HttpListResult result){
     	if (packageType != 1 && packageType != 2 && packageType != 3 && packageType != 4) {
     		return (HttpListResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PACKAGETYPE_ERR);
 		}
@@ -625,11 +630,11 @@ public class UserController {
     @RequestMapping("/addOrder")
     @ResponseBody
     @NoAuth
-    public HttpDataResult addOrder(HttpServletRequest request, String jsonParameter,  HttpDataResult result){
+    public HttpDataResult addOrder(HttpServletRequest request,@RequestParam String string,  HttpDataResult result){
     	JSONObject parameter = null;
     	Order order = new Order();
     	try {
-    		parameter = JSONObject.fromObject(jsonParameter);
+    		parameter = JSONObject.fromObject(string);
 		} catch (Exception e) {
 			return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_PARAMETER_ERR);
 		}
@@ -722,7 +727,7 @@ public class UserController {
 		}else {
 			return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_CHOICEPACKAGESERVICE);
 		}
-    	Integer packageTypeId = 0;
+    	int packageTypeId = 0;
     	List<Packages> packagesList = this.userService.findPackagesByIds(packageServiceIdList);
     	if (packagesList != null && packagesList.size() > 0) {
 			if (packageServiceIdList.size() == packagesList.size()) {
@@ -758,7 +763,7 @@ public class UserController {
     @RequestMapping("/updateOrderState")
     @ResponseBody
     @NoAuth
-    public HttpDataResult updateOrderState(HttpServletRequest request, Integer userId, Integer orderId, HttpDataResult result){
+    public HttpDataResult updateOrderState(HttpServletRequest request,@RequestParam int userId,@RequestParam int orderId, HttpDataResult result){
     	User user = this.userService.findUserByUserId(userId);
     	if (user == null) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_USERID_ERR);
@@ -788,7 +793,7 @@ public class UserController {
     @RequestMapping("/getOrderDescByOrderId")
     @ResponseBody
     @NoAuth
-    public HttpDataResult getOrderDescByOrderId(HttpServletRequest request, Integer orderId, HttpDataResult result){
+    public HttpDataResult getOrderDescByOrderId(HttpServletRequest request,@RequestParam int orderId, HttpDataResult result){
     	Order order = this.userService.findOrderByOrderId(orderId);
     	if (order == null) {
     		return (HttpDataResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_ORDER_NOT_EXIST);
@@ -834,7 +839,7 @@ public class UserController {
     @RequestMapping("/getUserOrderList")
     @ResponseBody
     @NoAuth
-    public HttpListResult getUserOrderList(HttpServletRequest request, Integer userId, Integer state, Integer page, Integer pageSize, HttpListResult result){
+    public HttpListResult getUserOrderList(HttpServletRequest request,@RequestParam int userId,@RequestParam int state,@RequestParam int page,@RequestParam int pageSize, HttpListResult result){
     	User user = this.userService.findUserByUserId(userId);
     	if (user == null) {
     		return (HttpListResult) HttpResultHelper.handleJsonErrorResult(result, Messages.EC_USERID_ERR);
