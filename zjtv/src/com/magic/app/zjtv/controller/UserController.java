@@ -495,6 +495,7 @@ public class UserController {
 				Map<String, Object> returnMap = new HashMap<String, Object>();
 				returnMap.put("packageServiceName", packages.getPackageServiceName());
 				returnMap.put("packageServicePrice", packages.getPackageServicePrice());
+				returnMap.put("packageServiceIcon", packages.getPackageServiceIcon());
 		    	returnMap.put("packageServiceId", packages.getId());
 		    	dataList.add(returnMap);
 			}
@@ -515,6 +516,7 @@ public class UserController {
     	Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("packageServiceName", packages.getPackageServiceName());
 		returnMap.put("packageServicePrice", packages.getPackageServicePrice());
+		returnMap.put("packageServiceIcon", packages.getPackageServiceIcon());
     	returnMap.put("packageServiceId", packages.getId());
     	returnMap.put("packageServiceDesc", packages.getPackageServiceDesc());
     	result.setData(returnMap);
@@ -817,6 +819,7 @@ public class UserController {
 					oMap.put("packageServiceName", orderPackageService.getPackages() == null ? "" : orderPackageService.getPackages().getPackageServiceName());
 					oMap.put("packageServiceDesc", orderPackageService.getPackages() == null ? "" : orderPackageService.getPackages().getPackageServiceDesc());
 					oMap.put("packageServicePrice", orderPackageService.getPackages() == null ? "" : orderPackageService.getPackages().getPackageServicePrice());
+					oMap.put("packageServiceIcon", orderPackageService.getPackages() == null ? "" : orderPackageService.getPackages().getPackageServiceIcon());
 					oMap.put("packageServiceId", orderPackageService.getPackages() == null ? 0 : orderPackageService.getPackages().getId());
 					oList.add(oMap);
 				}
