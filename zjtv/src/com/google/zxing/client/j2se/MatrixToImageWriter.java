@@ -16,6 +16,10 @@
 
 package com.google.zxing.client.j2se;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
 import javax.imageio.ImageIO;
@@ -24,6 +28,7 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.util.Hashtable;
 
 /**
  * Writes a {@link BitMatrix} to {@link BufferedImage},
@@ -120,4 +125,16 @@ public final class MatrixToImageWriter {
     }
   }
 
+  
+  public static void main(String[] args) throws WriterException, IOException {
+	  String text = "你好";   
+      int width = 500;   
+      int height = 500;   
+      String format = "png";   
+      Hashtable hints= new Hashtable();   
+      hints.put(EncodeHintType.CHARACTER_SET, "utf-8");   
+       BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height,hints);   
+       File outputFile = new File("d:/new.png");   
+       MatrixToImageWriter.writeToFile(bitMatrix, format, outputFile);  
+  }
 }
